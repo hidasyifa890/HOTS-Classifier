@@ -1,0 +1,2 @@
+Hub merupakan komponen vsat pada bagian
+Topologi jaringan vsat yang memiliki hub sebagai pusat dari jaringan adalah

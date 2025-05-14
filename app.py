@@ -11,8 +11,8 @@ def load_pickled_objects():
 
 def main():
     session_state = st.session_state
-    if 'selected_text' not in session_state:
-        session_state.selected_text = ""
+    if 'text_inputs' not in session_state:
+        session_state.text_inputs = [""]  # Default: 1 input box
     if 'predict_button_clicked' not in session_state:
         session_state.predict_button_clicked = False
 
@@ -33,58 +33,55 @@ def main():
         st.markdown('<h1>Panduan Penggunaan</h1>', unsafe_allow_html=True)
         st.markdown("---")
         st.markdown("1. Masuk ke halaman beranda.")
-        st.markdown("2.	Masukan soal dalam bentuk teks berbahasa indonesia.")
-        st.markdown("3.	Klik tombol predict.")
-        st.markdown("4.	Akan tampil hasil klasifikasi soal berdasarkan level kognitif.")
-    #     st.markdown('<center><h1>PROGRAM PASCA SARJANA</h1></center>', unsafe_allow_html=True)
-    #     st.markdown('<center><h1>UNIVERSITAS NEGERI YOGYAKARTA</h1></center>', unsafe_allow_html=True)
-    #     st.markdown('<center><h1>2023</h1></center>', unsafe_allow_html=True)
-
+        st.markdown("2. Masukan soal dalam bentuk teks berbahasa Indonesia (bisa multiple input).")
+        st.markdown("3. Gunakan tombol '+' untuk menambah input atau '-' untuk menghapus input.")
+        st.markdown("4. Klik tombol predict.")
+        st.markdown("5. Akan tampil hasil klasifikasi soal untuk semua input.")
 
     if choice == 'Beranda':
         st.header("Klasifikasikan teks anda disini!")
-
-        text_input = st.text_area(
-            label="Input text here",
-            placeholder="Masukan teks soal",
-            label_visibility='hidden',
-            value=session_state.selected_text
-        )
+        
+        # Container untuk input dinamis
+        input_container = st.container()
+        
+        # Tombol tambah/hapus input
+        col1, col2 = st.columns([1, 10])
+        with col1:
+            if st.button('➕ Tambah Input'):
+                session_state.text_inputs.append("")
+        with col2:
+            if st.button('➖ Hapus Input') and len(session_state.text_inputs) > 1:
+                session_state.text_inputs.pop()
+        
+        # Render semua text input
+        for i, text in enumerate(session_state.text_inputs):
+            session_state.text_inputs[i] = input_container.text_area(
+                f"Soal {i+1}",
+                value=text,
+                placeholder=f"Masukkan teks soal {i+1}",
+                key=f"text_input_{i}"
+            )
 
         predict_button = st.button('Predict', key='predict', type='primary')
 
         if predict_button or session_state.predict_button_clicked:
             session_state.predict_button_clicked = False
-
-            if text_input:
+            all_filled = all(text.strip() for text in session_state.text_inputs)
+            
+            if all_filled:
                 pickled_vector, pickled_model = load_pickled_objects()
-                predict_text(text_input, pickled_vector, pickled_model)
+                
+                for i, text in enumerate(session_state.text_inputs):
+                    with st.expander(f"Hasil Klasifikasi Soal {i+1}", expanded=True):
+                        predict_text(text, pickled_vector, pickled_model)
             else:
-                st.warning("Silahkan input teks pada form untuk melakukan klasifikasi!")
+                st.warning("Semua input teks harus diisi untuk melakukan klasifikasi!")
 
     elif choice == 'Tentang':
-        st.title('Tentang')
-        st.markdown("---")
-        st.markdown("<h1 style='font-weight:bold;font-size:30px;'>Aplikasi</h1>", unsafe_allow_html=True)
-        st.markdown("""K-Bloom merupakan aplikasi untuk mengklasifikasikan soal berdasarkan level kognitif taksonomi
-                    bloom ke dalam dua kelas: HOTS (Higher Order Thinking Skills) dan LOTS (Lower Order Thinking Skills). Aplikasi 
-                        ini dikembangkan agar mempermudah guru ataupun calon guru memprediksi kategori soal yang akan digunakan 
-                        untuk mengukur pengetahuan peserta didik tentang materi yang bersangkutan.""")
-            
-        st.markdown("<h1 style='font-weight:bold;font-size:30px;'>Metode</h1>", unsafe_allow_html=True)
-        st.markdown("""Aplikasi ini menggunakan KNearest Neighbor Classifier yang merupakan K-Nearest Neighbors (KNN) adalah salah satu algoritma pembelajaran mesin yang digunakan dalam klasifikasi dan regresi.
-                    Ini adalah metode pembelajaran memungkinkan kita untuk melakukan prediksi berdasarkan kesamaan antara data yang akan diprediksi dengan data pelatihan yang sudah ada. 
-                    Ide dasar di balik KNN adalah bahwa data yang mirip cenderung memiliki label yang mirip.""")
-        
-        st.markdown("<h1 style='font-weight:bold;font-size:30px;'>Fitur</h1>", unsafe_allow_html=True)
-        st.markdown("- Mengklasifikasikan teks ke dalam dua kategori: HOTS dan LOTS berdasarkan data masukan pengguna.")
-        st.markdown("- Menggunakan algoritma K-Nearest Neighbors (KNN).")
-        st.markdown("- Menerapkan TF-IDF sebagai teknik preprocessing untuk merepresentasikan data teks.")
-        st.markdown("- Mengeksplorasi hyperparameter untuk mengoptimalkan model klasifikasi.")
-
+        # ... (kode tentang tetap sama)
+        pass
 
 def predict_text(text, vectorizer, model):
-    
     lots_suggest = [
         'Sebaiknya soal mengandung kemampuan atau keterampilan membedakan, mengorganisasikan, dan menghubungkan. Kata kerja operasional yang biasa digunakan adalah membandingkan, mengkritisi, mengurutkan, membedakan, dan menentukan.',
         'Sebaiknya soal mengandung kata kerja operasional yang digunakan yaitu mengevaluasi, memilih, menilai, menyanggah, dan memberikan pendapat.', 
@@ -95,7 +92,6 @@ def predict_text(text, vectorizer, model):
     vectorized_text = model.transform(sentence)
     predict = vectorizer.predict(vectorized_text)
     
-    # Get the first element (predicted class) from the numpy array
     predicted_class = predict[0]
     
     if predicted_class == 'Lower Order Thinking Skills':

@@ -77,8 +77,69 @@ def main():
             else:
                 st.warning("Semua input teks harus diisi untuk melakukan klasifikasi!")
 
-    elif choice == 'Tentang':
-        # ... (kode tentang tetap sama)
+  elif choice == 'Tentang':
+    st.title('Tentang Aplikasi')
+    st.markdown("---")
+    
+    # Fungsi Aplikasi
+    st.markdown("<h2 style='font-weight:bold;'>Fungsi Aplikasi</h2>", unsafe_allow_html=True)
+    st.markdown("""
+    <div style='text-align: justify;'>
+    K-Bloom merupakan aplikasi untuk mengklasifikasikan soal berdasarkan level kognitif taksonomi Bloom 
+    ke dalam dua kategori: HOTS (Higher Order Thinking Skills) dan LOTS (Lower Order Thinking Skills). 
+    Aplikasi ini membantu pendidik dalam menganalisis dan mengembangkan soal yang sesuai dengan 
+    tingkat kognitif yang diharapkan.
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Metode
+    st.markdown("<h2 style='font-weight:bold;margin-top:20px;'>Metode</h2>", unsafe_allow_html=True)
+    st.markdown("""
+    <div style='text-align: justify;'>
+    Aplikasi ini menggunakan algoritma <b>K-Nearest Neighbors (KNN)</b> dengan representasi teks menggunakan <b>TF-IDF</b>. 
+    Model ini mampu mengklasifikasikan teks soal dengan akurasi hingga 87% berdasarkan pengujian yang dilakukan.
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Pengembang
+    st.markdown("<h2 style='font-weight:bold;margin-top:20px;'>Tim Pengembang</h2>", unsafe_allow_html=True)
+    
+    col1, col2 = st.columns([1, 3])
+    
+    with col1:
+        st.image('temp/icon/icon2.png', width=150)
+    
+    with col2:
+        st.markdown("""
+        <div style='background-color:#f0f2f6; padding:15px; border-radius:10px;'>
+            <h3 style='margin-bottom:5px;'>Pengembang</h3>
+            <p style='margin:0;'><b>Nama:</b> Hida Syifaurohmah</p>
+            <p style='margin:0;'><b>Pembimbing:</b> Dr. Ir. Fatchul Arifin, M.T.</p>
+            <p style='margin-top:10px;'>Program Pascasarjana Universitas Negeri Yogyakarta</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # Fitur Aplikasi
+    st.markdown("<h2 style='font-weight:bold;margin-top:20px;'>Fitur Utama</h2>", unsafe_allow_html=True)
+    
+    feature_col1, feature_col2 = st.columns(2)
+    
+    with feature_col1:
+        st.markdown("""
+        - ✔️ Klasifikasi multi-teks sekaligus
+        - ✔️ Input dinamis (tambah/hapus form)
+        - ✔️ Hasil klasifikasi real-time
+        """)
+    
+    with feature_col2:
+        st.markdown("""
+        - ✔️ Rekomendasi peningkatan soal LOTS
+        - ✔️ Antarmuka yang user-friendly
+        - ✔️ Akurasi klasifikasi hingga 87%
+        """)
+    
+    st.markdown("---")
+    st.markdown("<p style='text-align:center;'>© 2023 K-Bloom Classifier - Universitas Negeri Yogyakarta</p>", unsafe_allow_html=True)
         pass
 
 def predict_text(text, vectorizer, model):

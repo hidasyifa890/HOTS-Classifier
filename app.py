@@ -110,9 +110,9 @@ def main():
 
         with col_method1:
             st.markdown("""
-            ### 🧠 Algoritma KNN
-            - Menggunakan K-Nearest Neighbors
-            - Akurasi mencapai 87%
+            ### 🧠 Algoritma Decision Tree
+            - Menggunakan Decision Tree 
+            - Akurasi mencapai 93%
             - Optimasi parameter menggunakan grid search
             """)
 
@@ -130,8 +130,6 @@ def main():
 
         dev_col1, dev_col2 = st.columns([1, 3])
 
-        with dev_col1:
-            st.image(image_icon, width=150)
 
         with dev_col2:
             st.markdown("""

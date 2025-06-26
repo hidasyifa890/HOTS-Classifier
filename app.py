@@ -159,9 +159,6 @@ def main():
         st.markdown("---")
         st.header("👥 Tim Pengembang Inti")
 
-        dev_col1, dev_col2 = st.columns([1, 3])
-
-
         with dev_col2:
             st.markdown("""
             <div style='background-color:#f0f2f6; padding:20px; border-radius:10px;'>

@@ -141,10 +141,10 @@ def main():
 
         with col_method1:
             st.markdown("""
-            ### 🧠 Algoritma Decision Tree
-            - Menggunakan Decision Tree 
+            ### 🧠 Algoritma Support Vector Machine
+            - Menggunakan Support Vector Machine
             - Akurasi mencapai 93%
-            - Optimasi parameter menggunakan grid search
+            - Dapat menangani klasifikasi dua kelas dengan margin optimal
             """)
 
         with col_method2:
@@ -152,17 +152,14 @@ def main():
             ### 📊 TF-IDF Vectorizer
             - Preprocessing teks otomatis
             - Stopword removal bahasa Indonesia
-            - N-gram (1-3 kata)
+            - N-gram (1-2 kata)
             """)
 
         # Tim Pengembang
         st.markdown("---")
         st.header("👥 Tim Pengembang")
 
-        dev_col1, dev_col2 = st.columns([1, 3])
 
-
-        with dev_col2:
             st.markdown("""
             <div style='background-color:#f0f2f6; padding:20px; border-radius:10px;'>
                 <h3 style='color:#2e86c1;'>Pengembang Utama</h3>

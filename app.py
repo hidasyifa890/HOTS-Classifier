@@ -83,13 +83,14 @@ def main():
         input_container = st.container()
 
         # Tombol tambah/hapus input
-        col1, col2 = st.columns([1, 10])
-        with col1:
-            if st.button('➕ Tambah Input'):
-                session_state.text_inputs.append("")
-        with col2:
-            if st.button('➖ Hapus Input') and len(session_state.text_inputs) > 1:
-                session_state.text_inputs.pop()
+      #  col1, col2 = st.columns([1, 10])
+       
+#       with col1:
+ #           if st.button('➕ Tambah Input'):
+  #              session_state.text_inputs.append("")
+   #     with col2:
+    #        if st.button('➖ Hapus Input') and len(session_state.text_inputs) > 1:
+     #           session_state.text_inputs.pop()
 
         # Render semua text input
         for i, text in enumerate(session_state.text_inputs):

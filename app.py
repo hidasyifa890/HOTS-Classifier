@@ -166,7 +166,7 @@ def main():
                 <p><b>Institusi:</b> Program Pascasarjana Universitas Negeri Yogyakarta</p>
                 <p><b>Tahun:</b> 2025</p>
             </div>
-            """)
+            """, unsafe_allow_html=True)
 
         # Fitur Aplikasi
         st.markdown("---")

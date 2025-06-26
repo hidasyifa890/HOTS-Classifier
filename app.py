@@ -157,7 +157,10 @@ def main():
 
         # Tim Pengembang
         st.markdown("---")
-        st.header("👥 Tim Pengembang Inti")
+        st.header("👥 Tim Pengembang")
+
+        dev_col1, dev_col2 = st.columns([1, 3])
+
 
         with dev_col2:
             st.markdown("""

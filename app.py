@@ -156,9 +156,9 @@ def main():
             """)
 
         # Tim Pengembang
-        st.markdown("---")
-        st.header("👥 Tim Pengembang")
-           st.markdown("""
+       # st.markdown("---")
+        #st.header("👥 Tim Pengembang")
+         #  st.markdown("""
             <div style='background-color:#f0f2f6; padding:20px; border-radius:10px;'>
                 <h3 style='color:#2e86c1;'>Pengembang Utama</h3>
                 <p><b>Nama:</b> Hida Syifaurohmah</p>

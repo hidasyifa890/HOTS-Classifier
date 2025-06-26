@@ -1,3 +1,35 @@
+
+st.markdown(
+    """
+    <style>
+    body {
+        background-color: #f9f9f9;
+    }
+    .main {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+    }
+    h1 {
+        color: #00296b;
+        font-weight: bold;
+    }
+    .stButton>button {
+        background-color: #ffd100;
+        color: #00296b;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+    }
+    .stButton>button:hover {
+        background-color: #ffcc00;
+        color: black;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 import pickle
 import streamlit as st
 import random
@@ -24,15 +56,15 @@ def main():
     st.set_page_config(
         page_title='HOTS Classifier',
         layout='wide',
-        initial_sidebar_state='auto',
+        initial_sidebar_state='collapsed',
         page_icon=image_icon
     )
 
-    st.sidebar.title('Klasifikasi Soal HOTS dan LOTS')
-    st.sidebar.image(image_icon)
-    choice = st.sidebar.selectbox(
+    
+    
+    choice = st.selectbox('Pilih Menu:', ['Beranda', 'Panduan Penggunaan', 'Tentang'])
         'Main Menu', ['Beranda', 'Panduan Penggunaan', 'Tentang'])
-    st.sidebar.info(
+    # st.sidebar.info(
         'Web ini dapat melakukan fungsi klasifikasi teks ke dalam kategori HOTS dan LOTS.')
 
     if choice == 'Panduan Penggunaan':

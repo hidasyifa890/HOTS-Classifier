@@ -152,13 +152,18 @@ def main():
             ### 📊 TF-IDF Vectorizer
             - Preprocessing teks otomatis
             - Stopword removal bahasa Indonesia
-            - N-gram (1-2 kata)
+            - N-gram (1-22 kata)
             """)
 
         # Tim Pengembang
-       # st.markdown("---")
-        #st.header("👥 Tim Pengembang")
-         #  st.markdown("""
+        st.markdown("---")
+        st.header("👥 Tim Pengembang")
+
+        dev_col1, dev_col2 = st.columns([1, 3])
+
+
+        with dev_col2:
+            st.markdown("""
             <div style='background-color:#f0f2f6; padding:20px; border-radius:10px;'>
                 <h3 style='color:#2e86c1;'>Pengembang Utama</h3>
                 <p><b>Nama:</b> Hida Syifaurohmah</p>

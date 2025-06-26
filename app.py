@@ -189,8 +189,8 @@ def main():
         with feature_col2:
             st.markdown("""
             - ✅ Hasil real-time
-            - ✅ Input dinamis (tambah/hapus)
-            - ✅ Akurasi tinggi (87%)
+            - ✅ Input bisa 100 soal
+            - ✅ Akurasi tinggi (93%)
             """)
 
         st.markdown("---")

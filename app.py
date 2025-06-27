@@ -7,9 +7,9 @@ from PIL import Image
 @st.cache_data()
 def load_pickled_objects():
     pickled_vector = pickle.load(
-        open('temp/model/best_model_svm.pkl', 'rb'))
+        open('temp/model/bestModelKNNSTDEVS0-accTesting87%.pkl', 'rb'))
     pickled_model = pickle.load(
-        open('temp/model/best_vectorizer_svm.pkl', 'rb'))
+        open('temp/model/bestVectorKNNSTDEV.S0-accTesting87%.pkl', 'rb'))
     return pickled_vector, pickled_model
 
 
@@ -41,25 +41,59 @@ def main():
         st.markdown("1. Masuk ke halaman beranda.")
         st.markdown(
             "2. Masukan soal dalam bentuk teks berbahasa Indonesia (bisa multiple input).")
+            "2. Masukan soal dalam bentuk teks berbahasa Indonesia atau bisa multiple input dalam format csv.")
         st.markdown(
             "3. Gunakan tombol '+' untuk menambah input atau '-' untuk menghapus input.")
         st.markdown("4. Klik tombol predict.")
+            "3. Gunakan tombol browse file untuk menginput data dalam bentuk csv lalu pilih file csv yang berisi pertanyaan")
+        st.markdown("4. Klik tombol predict jika ingin menginput secara manual.")
         st.markdown("5. Akan tampil hasil klasifikasi soal untuk semua input.")
 
     if choice == 'Beranda':
+        st.markdown("---")
+        st.subheader("📂 Upload File CSV (maksimal 100 soal)")
+
+        uploaded_file = st.file_uploader("Unggah file .csv berisi kolom 'Pertanyaan'", type=["csv"])
+        if uploaded_file is not None:
+            import pandas as pd
+            try:
+                df = pd.read_csv(uploaded_file)
+                if 'Pertanyaan' not in df.columns:
+                    st.error("⚠️ Kolom 'Pertanyaan' tidak ditemukan. Pastikan nama kolom persis 'Pertanyaan'.")
+                else:
+                    df = df.head(100)  # Batasi hanya 100 soal
+                    st.success(f"{len(df)} soal berhasil dimuat. Menampilkan preview:")
+                    st.dataframe(df)
+
+                    pickled_vector, pickled_model = load_pickled_objects()
+                    pertanyaan = df['Pertanyaan'].astype(str).str.lower()
+                    hasil_vector = pickled_model.transform(pertanyaan)
+                    prediksi = pickled_vector.predict(hasil_vector)
+
+                    df['Prediksi'] = prediksi
+                    st.subheader("✅ Hasil Klasifikasi:")
+                    st.dataframe(df[['Pertanyaan', 'Prediksi']])
+
+                    # Unduh hasil
+                    hasil_csv = df.to_csv(index=False).encode('utf-8')
+                    st.download_button("⬇️ Unduh Hasil Klasifikasi", hasil_csv, "hasil_klasifikasi.csv", "text/csv")
+            except Exception as e:
+                st.error(f"Terjadi kesalahan saat membaca file: {e}")
+
         st.header("Klasifikasikan teks anda disini!")
 
         # Container untuk input dinamis
         input_container = st.container()
 
         # Tombol tambah/hapus input
-        col1, col2 = st.columns([1, 10])
-        with col1:
-            if st.button('➕ Tambah Input'):
-                session_state.text_inputs.append("")
-        with col2:
-            if st.button('➖ Hapus Input') and len(session_state.text_inputs) > 1:
-                session_state.text_inputs.pop()
+      #  col1, col2 = st.columns([1, 10])
+       
+#       with col1:
+ #           if st.button('➕ Tambah Input'):
+  #              session_state.text_inputs.append("")
+   #     with col2:
+    #        if st.button('➖ Hapus Input') and len(session_state.text_inputs) > 1:
+     #           session_state.text_inputs.pop()
 
         # Render semua text input
         for i, text in enumerate(session_state.text_inputs):
@@ -110,10 +144,10 @@ def main():
 
         with col_method1:
             st.markdown("""
-            ### 🧠 Algoritma Decision Tree
-            - Menggunakan Decision Tree 
+            ### 🧠 Algoritma Support Vector Machine
+            - Menggunakan Support Vector Machine
             - Akurasi mencapai 93%
-            - Optimasi parameter menggunakan grid search
+            - Dapat menangani klasifikasi dua kelas dengan margin optimal
             """)
 
         with col_method2:
@@ -121,12 +155,12 @@ def main():
             ### 📊 TF-IDF Vectorizer
             - Preprocessing teks otomatis
             - Stopword removal bahasa Indonesia
-            - N-gram (1-3 kata)
+            - N-gram (1-22 kata)
             """)
 
         # Tim Pengembang
         st.markdown("---")
-        st.header("👥 Tim Pengembang ")
+        st.header("👥 Tim Pengembang")
 
         dev_col1, dev_col2 = st.columns([1, 3])
 
@@ -158,8 +192,8 @@ def main():
         with feature_col2:
             st.markdown("""
             - ✅ Hasil real-time
-            - ✅ Input dinamis (tambah/hapus)
-            - ✅ Akurasi tinggi (87%)
+            - ✅ Input bisa 100 soal
+            - ✅ Akurasi tinggi (93%)
             """)
 
         st.markdown("---")

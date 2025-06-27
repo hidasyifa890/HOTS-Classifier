@@ -67,7 +67,6 @@ def main():
         # Render semua text input
         for i, text in enumerate(session_state.text_inputs):
             session_state.text_inputs[i] = input_container.text_area(
-                f"Soal {i+1}",
                 value=text,
                 placeholder=f"Masukkan teks soal {i+1}",
                 key=f"text_input_{i}"

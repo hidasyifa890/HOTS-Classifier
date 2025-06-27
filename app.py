@@ -13,8 +13,8 @@ st.set_page_config(
 )
 
 # Load model dan vectorizer
-model = joblib.load("model_svm.pkl")
-vectorizer = joblib.load("vectorizer.pkl")
+model = joblib.load("best_model_svm.pkl")
+vectorizer = joblib.load("best_vectorizer_svm.pkl")
 
 # Fungsi klasifikasi
 def classify_text(text):

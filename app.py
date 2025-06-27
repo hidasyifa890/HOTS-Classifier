@@ -65,9 +65,9 @@ def main():
         # Render semua text input
         for i, text in enumerate(session_state.text_inputs):
             session_state.text_inputs[i] = input_container.text_area(
-                f"Soal {i+1}",
+                f"Input Soal",
                 value=text,
-                placeholder=f"Masukkan teks soal {i+1}",
+                placeholder=f"Masukkan teks soal",
                 key=f"text_input_{i}"
             )
 
@@ -87,9 +87,9 @@ def main():
             else:
                 st.warning(
                     "Semua input teks harus diisi untuk melakukan klasifikasi!")
-        st.header("📂 Upload File CSV (maksimal 100 soal)")
+        st.header("Upload File CSV")
 
-        uploaded_file = st.file_uploader("Unggah file .csv berisi kolom 'Pertanyaan'", type=["csv"])
+        uploaded_file = st.file_uploader("Unggah file .csv berisi kolom 'Pertanyaan' maksimal 100 soal", type=["csv"])
         if uploaded_file is not None:
             import pandas as pd
             try:
@@ -115,7 +115,7 @@ def main():
                     st.download_button("⬇️ Unduh Hasil Klasifikasi", hasil_csv, "hasil_klasifikasi.csv", "text/csv")
             except Exception as e:
                 st.error(f"Terjadi kesalahan saat membaca file: {e}")
-
+ st.markdown("---")
     elif choice == 'Tentang':
         st.title('Tentang Aplikasi')
         st.markdown("---")

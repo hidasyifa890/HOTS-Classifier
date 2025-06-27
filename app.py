@@ -115,7 +115,7 @@ def main():
                     st.download_button("⬇️ Unduh Hasil Klasifikasi", hasil_csv, "hasil_klasifikasi.csv", "text/csv")
             except Exception as e:
                 st.error(f"Terjadi kesalahan saat membaca file: {e}")
- st.markdown("---")
+
     elif choice == 'Tentang':
         st.title('Tentang Aplikasi')
         st.markdown("---")

@@ -90,9 +90,9 @@ def main():
                 st.warning(
                     "Semua input teks harus diisi untuk melakukan klasifikasi!")
         st.markdown("---")
-        st.header("📂 Upload File CSV (maksimal 100 soal)")
+        st.header("Upload File CSV")
 
-        uploaded_file = st.file_uploader("Unggah file .csv berisi kolom 'Pertanyaan'", type=["csv"])
+        uploaded_file = st.file_uploader("Unggah file .csv berisi kolom 'Pertanyaan' maksimal 100 soal", type=["csv"])
         if uploaded_file is not None:
             import pandas as pd
             try:

@@ -12,9 +12,15 @@ st.set_page_config(
     page_icon="📘"
 )
 
-# Load model dan vectorizer
-model = joblib.load("best_model_svm.pkl")
-vectorizer = joblib.load("best_vectorizer_svm.pkl")
+
+@st.cache_data()
+def load_pickled_objects():
+    pickled_vector = pickle.load(
+        open('temp/model/best_model_svm.pkl', 'rb'))
+    pickled_model = pickle.load(
+        open('temp/model/best_vectorizer_svm.pkl', 'rb'))
+    return pickled_vector, pickled_model
+
 
 # Fungsi klasifikasi
 def classify_text(text):

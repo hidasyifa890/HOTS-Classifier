@@ -39,13 +39,8 @@ def main():
         st.markdown('<h1>Panduan Penggunaan</h1>', unsafe_allow_html=True)
         st.markdown("---")
         st.markdown("1. Masuk ke halaman beranda.")
-        st.markdown(
-            "2. Masukan soal dalam bentuk teks berbahasa Indonesia (bisa multiple input).")
-            "2. Masukan soal dalam bentuk teks berbahasa Indonesia atau bisa multiple input dalam format csv.")
-        st.markdown(
-            "3. Gunakan tombol '+' untuk menambah input atau '-' untuk menghapus input.")
-        st.markdown("4. Klik tombol predict.")
-            "3. Gunakan tombol browse file untuk menginput data dalam bentuk csv lalu pilih file csv yang berisi pertanyaan")
+        st.markdown("2. Masukan soal dalam bentuk teks berbahasa Indonesia atau bisa multiple input dalam format csv.")
+        st.markdown("3. Gunakan tombol browse file untuk menginput data dalam bentuk csv lalu pilih file csv yang berisi pertanyaan")
         st.markdown("4. Klik tombol predict jika ingin menginput secara manual.")
         st.markdown("5. Akan tampil hasil klasifikasi soal untuk semua input.")
 

@@ -46,35 +46,7 @@ def main():
 
     if choice == 'Beranda':
         st.markdown("---")
-        st.subheader("📂 Upload File CSV (maksimal 100 soal)")
-
-        uploaded_file = st.file_uploader("Unggah file .csv berisi kolom 'Pertanyaan'", type=["csv"])
-        if uploaded_file is not None:
-            import pandas as pd
-            try:
-                df = pd.read_csv(uploaded_file)
-                if 'Pertanyaan' not in df.columns:
-                    st.error("⚠️ Kolom 'Pertanyaan' tidak ditemukan. Pastikan nama kolom persis 'Pertanyaan'.")
-                else:
-                    df = df.head(100)  # Batasi hanya 100 soal
-                    st.success(f"{len(df)} soal berhasil dimuat. Menampilkan preview:")
-                    st.dataframe(df)
-
-                    pickled_vector, pickled_model = load_pickled_objects()
-                    pertanyaan = df['Pertanyaan'].astype(str).str.lower()
-                    hasil_vector = pickled_model.transform(pertanyaan)
-                    prediksi = pickled_vector.predict(hasil_vector)
-
-                    df['Prediksi'] = prediksi
-                    st.subheader("✅ Hasil Klasifikasi:")
-                    st.dataframe(df[['Pertanyaan', 'Prediksi']])
-
-                    # Unduh hasil
-                    hasil_csv = df.to_csv(index=False).encode('utf-8')
-                    st.download_button("⬇️ Unduh Hasil Klasifikasi", hasil_csv, "hasil_klasifikasi.csv", "text/csv")
-            except Exception as e:
-                st.error(f"Terjadi kesalahan saat membaca file: {e}")
-
+        
         st.header("Klasifikasikan teks anda disini!")
 
         # Container untuk input dinamis
@@ -115,6 +87,34 @@ def main():
             else:
                 st.warning(
                     "Semua input teks harus diisi untuk melakukan klasifikasi!")
+        st.header("📂 Upload File CSV (maksimal 100 soal)")
+
+        uploaded_file = st.file_uploader("Unggah file .csv berisi kolom 'Pertanyaan'", type=["csv"])
+        if uploaded_file is not None:
+            import pandas as pd
+            try:
+                df = pd.read_csv(uploaded_file)
+                if 'Pertanyaan' not in df.columns:
+                    st.error("⚠️ Kolom 'Pertanyaan' tidak ditemukan. Pastikan nama kolom persis 'Pertanyaan'.")
+                else:
+                    df = df.head(100)  # Batasi hanya 100 soal
+                    st.success(f"{len(df)} soal berhasil dimuat. Menampilkan preview:")
+                    st.dataframe(df)
+
+                    pickled_vector, pickled_model = load_pickled_objects()
+                    pertanyaan = df['Pertanyaan'].astype(str).str.lower()
+                    hasil_vector = pickled_model.transform(pertanyaan)
+                    prediksi = pickled_vector.predict(hasil_vector)
+
+                    df['Prediksi'] = prediksi
+                    st.subheader("✅ Hasil Klasifikasi:")
+                    st.dataframe(df[['Pertanyaan', 'Prediksi']])
+
+                    # Unduh hasil
+                    hasil_csv = df.to_csv(index=False).encode('utf-8')
+                    st.download_button("⬇️ Unduh Hasil Klasifikasi", hasil_csv, "hasil_klasifikasi.csv", "text/csv")
+            except Exception as e:
+                st.error(f"Terjadi kesalahan saat membaca file: {e}")
 
     elif choice == 'Tentang':
         st.title('Tentang Aplikasi')

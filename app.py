@@ -45,7 +45,6 @@ def main():
         st.markdown("5. Akan tampil hasil klasifikasi soal untuk semua input.")
 
     if choice == 'Beranda':
-        st.markdown("---")
         
         st.header("Klasifikasikan teks anda disini!")
 

@@ -69,7 +69,7 @@ def main():
             session_state.text_inputs[i] = input_container.text_area(
                 f" ",
                 value=text,
-                placeholder=f"Masukkan teks soal {i+1}",
+                placeholder=f"Masukkan teks soal",
                 key=f"text_input_{i}"
             )
 

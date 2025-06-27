@@ -7,9 +7,9 @@ from PIL import Image
 @st.cache_data()
 def load_pickled_objects():
     pickled_vector = pickle.load(
-        open('temp/model/bestModelKNNSTDEVS0-accTesting87%.pkl', 'rb'))
+        open('temp/model/best_model_svm.pkl', 'rb'))
     pickled_model = pickle.load(
-        open('temp/model/bestVectorKNNSTDEV.S0-accTesting87%.pkl', 'rb'))
+        open('temp/model/best_vectorizer_svm.pkl', 'rb'))
     return pickled_vector, pickled_model
 
 
@@ -40,36 +40,33 @@ def main():
         st.markdown("---")
         st.markdown("1. Masuk ke halaman beranda.")
         st.markdown(
-            "2. Masukan soal dalam bentuk teks berbahasa Indonesia atau bisa multiple input dalam format csv.")
+            "2. Masukan soal dalam bentuk teks berbahasa Indonesia (bisa multiple input).")
         st.markdown(
-            "3. Gunakan tombol browse file untuk menginput data dalam bentuk csv lalu pilih file csv yang berisi pertanyaan")
+            "3. Gunakan tombol '+' untuk menambah input atau '-' untuk menghapus input.")
         st.markdown("4. Klik tombol predict.")
         st.markdown("5. Akan tampil hasil klasifikasi soal untuk semua input.")
 
     if choice == 'Beranda':
-        
-
         st.header("Klasifikasikan teks anda disini!")
 
         # Container untuk input dinamis
         input_container = st.container()
 
         # Tombol tambah/hapus input
-      #  col1, col2 = st.columns([1, 10])
-       
-#       with col1:
- #           if st.button('➕ Tambah Input'):
-  #              session_state.text_inputs.append("")
-   #     with col2:
-    #        if st.button('➖ Hapus Input') and len(session_state.text_inputs) > 1:
-     #           session_state.text_inputs.pop()
+        col1, col2 = st.columns([1, 10])
+        with col1:
+            if st.button('➕ Tambah Input'):
+                session_state.text_inputs.append("")
+        with col2:
+            if st.button('➖ Hapus Input') and len(session_state.text_inputs) > 1:
+                session_state.text_inputs.pop()
 
         # Render semua text input
         for i, text in enumerate(session_state.text_inputs):
             session_state.text_inputs[i] = input_container.text_area(
-                f"Soal",
+                f"Soal {i+1}",
                 value=text,
-                placeholder=f"Masukkan teks soal",
+                placeholder=f"Masukkan teks soal {i+1}",
                 key=f"text_input_{i}"
             )
 
@@ -89,35 +86,6 @@ def main():
             else:
                 st.warning(
                     "Semua input teks harus diisi untuk melakukan klasifikasi!")
-                    st.markdown("---")
-        st.header("Upload File CSV (maksimal 100 soal)")
-
-        uploaded_file = st.file_uploader("Unggah file .csv berisi kolom 'Pertanyaan'", type=["csv"])
-        if uploaded_file is not None:
-            import pandas as pd
-            try:
-                df = pd.read_csv(uploaded_file)
-                if 'Pertanyaan' not in df.columns:
-                    st.error("⚠️ Kolom 'Pertanyaan' tidak ditemukan. Pastikan nama kolom persis 'Pertanyaan'.")
-                else:
-                    df = df.head(100)  # Batasi hanya 100 soal
-                    st.success(f"{len(df)} soal berhasil dimuat. Menampilkan preview:")
-                    st.dataframe(df)
-
-                    pickled_vector, pickled_model = load_pickled_objects()
-                    pertanyaan = df['Pertanyaan'].astype(str).str.lower()
-                    hasil_vector = pickled_model.transform(pertanyaan)
-                    prediksi = pickled_vector.predict(hasil_vector)
-
-                    df['Prediksi'] = prediksi
-                    st.subheader("✅ Hasil Klasifikasi:")
-                    st.dataframe(df[['Pertanyaan', 'Prediksi']])
-
-                    # Unduh hasil
-                    hasil_csv = df.to_csv(index=False).encode('utf-8')
-                    st.download_button("⬇️ Unduh Hasil Klasifikasi", hasil_csv, "hasil_klasifikasi.csv", "text/csv")
-            except Exception as e:
-                st.error(f"Terjadi kesalahan saat membaca file: {e}")
 
     elif choice == 'Tentang':
         st.title('Tentang Aplikasi')
@@ -142,10 +110,10 @@ def main():
 
         with col_method1:
             st.markdown("""
-            ### 🧠 Algoritma Support Vector Machine
-            - Menggunakan Support Vector Machine
+            ### 🧠 Algoritma Decision Tree
+            - Menggunakan Decision Tree 
             - Akurasi mencapai 93%
-            - Dapat menangani klasifikasi dua kelas dengan margin optimal
+            - Optimasi parameter menggunakan grid search
             """)
 
         with col_method2:
@@ -153,12 +121,12 @@ def main():
             ### 📊 TF-IDF Vectorizer
             - Preprocessing teks otomatis
             - Stopword removal bahasa Indonesia
-            - N-gram (1-2 kata)
+            - N-gram (1-3 kata)
             """)
 
         # Tim Pengembang
         st.markdown("---")
-        st.header("👥 Tim Pengembang")
+        st.header("👥 Tim Pengembang ")
 
         dev_col1, dev_col2 = st.columns([1, 3])
 
@@ -190,8 +158,8 @@ def main():
         with feature_col2:
             st.markdown("""
             - ✅ Hasil real-time
-            - ✅ Input bisa 100 soal
-            - ✅ Akurasi tinggi (93%)
+            - ✅ Input dinamis (tambah/hapus)
+            - ✅ Akurasi tinggi (87%)
             """)
 
         st.markdown("---")

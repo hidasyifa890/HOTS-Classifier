@@ -92,8 +92,7 @@ def main():
         if uploaded_file is not None:
             import pandas as pd
             try:
-                df = with st.spinner('Memuat data...'):
-        pd.read_csv(uploaded_file)
+                df = pd.read_csv(uploaded_file)
                 if 'Pertanyaan' not in df.columns:
                     st.error("⚠️ Kolom 'Pertanyaan' tidak ditemukan. Pastikan nama kolom persis 'Pertanyaan'.")
                 else:

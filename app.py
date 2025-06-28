@@ -7,9 +7,9 @@ from PIL import Image
 @st.cache_data()
 def load_pickled_objects():
     pickled_vector = pickle.load(
-        open('temp/model/bestModelKNNSTDEVS0-accTesting87%.pkl', 'rb'))
+        open('temp/model/best_model_svm.pkl', 'rb'))
     pickled_model = pickle.load(
-        open('temp/model/bestVectorKNNSTDEV.S0-accTesting87%.pkl', 'rb'))
+        open('temp/model/best_vectorizer_svm.pkl', 'rb'))
     return pickled_vector, pickled_model
 
 

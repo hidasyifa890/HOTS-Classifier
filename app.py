@@ -140,7 +140,7 @@ def main():
             st.markdown("""
             ### 🧠 Algoritma Support Vector Machine
             - Menggunakan Support Vector Machine
-            - Akurasi mencapai 93%
+            - Akurasi mencapai 91%
             - Dapat menangani klasifikasi dua kelas dengan margin optimal
             """)
 
@@ -149,7 +149,7 @@ def main():
             ### 📊 TF-IDF Vectorizer
             - Preprocessing teks otomatis
             - Stopword removal bahasa Indonesia
-            - N-gram (1-22 kata)
+            - N-gram (1-2 kata)
             """)
 
         # Tim Pengembang
@@ -159,7 +159,7 @@ def main():
         dev_col1, dev_col2 = st.columns([1, 3])
 
 
-        with dev_col2:
+        with dev_col1:
             st.markdown("""
             <div style='background-color:#f0f2f6; padding:20px; border-radius:10px;'>
                 <h3 style='color:#2e86c1;'>Pengembang Utama</h3>
@@ -187,7 +187,7 @@ def main():
             st.markdown("""
             - ✅ Hasil real-time
             - ✅ Input bisa 100 soal
-            - ✅ Akurasi tinggi (93%)
+            - ✅ Akurasi tinggi (91%)
             """)
 
         st.markdown("---")

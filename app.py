@@ -151,26 +151,7 @@ def main():
             - Stopword removal bahasa Indonesia
             - N-gram (1-2 kata)
             """)
-
-        # Tim Pengembang
-        st.markdown("---")
-        st.header("👥 Tim Pengembang")
-
-        dev_col1, dev_col2 = st.columns([3, 1])
-
-
-        with dev_col1:
-            st.markdown("""
-            <div style='background-color:#f0f2f6; padding:30px; border-radius:10px;'>
-                <h3 style='color:#2e86c1;'>Pengembang Utama</h3>
-                <p><b>Nama:</b> Hida Syifaurohmah</p>
-                <p><b>Pembimbing:</b> Dr. Ir. Fatchul Arifin, M.T.</p>
-                <p><b>Institusi:</b> Program Pascasarjana Universitas Negeri Yogyakarta</p>
-                <p><b>Tahun:</b> 2025</p>
-            </div>
-            """, unsafe_allow_html=True)
-
-        # Fitur Aplikasi
+ # Fitur Aplikasi
         st.markdown("---")
         st.header("✨ Fitur Unggulan")
 
@@ -191,6 +172,25 @@ def main():
             """)
 
         st.markdown("---")
+        # Tim Pengembang
+        st.markdown("---")
+        st.header("👥 Tim Pengembang")
+
+        dev_col1, dev_col2 = st.columns([3, 1])
+
+
+        with dev_col1:
+            st.markdown("""
+            <div style='background-color:#f0f2f6; padding:30px; border-radius:10px;'>
+                <h3 style='color:#2e86c1;'>Pengembang Utama</h3>
+                <p><b>Nama:</b> Hida Syifaurohmah</p>
+                <p><b>Pembimbing:</b> Dr. Ir. Fatchul Arifin, M.T.</p>
+                <p><b>Institusi:</b> Program Pascasarjana Universitas Negeri Yogyakarta</p>
+                <p><b>Tahun:</b> 2025</p>
+            </div>
+            """, unsafe_allow_html=True)
+
+       
         st.markdown(
             "<p style='text-align:center;color:#5d6d7e;'>© 2023 K-Bloom Classifier | Universitas Negeri Yogyakarta</p>", unsafe_allow_html=True)
 

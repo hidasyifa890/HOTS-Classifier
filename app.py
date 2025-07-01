@@ -171,7 +171,7 @@ def main():
             - ✅ Akurasi tinggi (91%)
             """)
 
-        st.markdown("---")
+        
         # Tim Pengembang
         st.markdown("---")
         st.header("👥 Tim Pengembang")
@@ -190,7 +190,27 @@ def main():
             </div>
             """, unsafe_allow_html=True)
 
-       
+        # Fitur Aplikasi
+        st.markdown("---")
+        st.header("✨ Fitur Unggulan")
+
+        feature_col1, feature_col2 = st.columns(2)
+
+        with feature_col1:
+            st.markdown("""
+            - ✅ Multi-input teks sekaligus
+            - ✅ Antarmuka interaktif
+            - ✅ Rekomendasi peningkatan soal
+            """)
+
+        with feature_col2:
+            st.markdown("""
+            - ✅ Hasil real-time
+            - ✅ Input bisa 100 soal
+            - ✅ Akurasi tinggi (91%)
+            """)
+
+        st.markdown("---")
         st.markdown(
             "<p style='text-align:center;color:#5d6d7e;'>© 2023 K-Bloom Classifier | Universitas Negeri Yogyakarta</p>", unsafe_allow_html=True)
 

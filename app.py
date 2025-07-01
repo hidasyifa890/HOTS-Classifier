@@ -171,7 +171,7 @@ def main():
             - ✅ Akurasi tinggi (91%)
             """)
 
-        st.markdown("---")
+        
         # Tim Pengembang
         st.markdown("---")
         st.header("👥 Tim Pengembang")
@@ -190,7 +190,7 @@ def main():
             </div>
             """, unsafe_allow_html=True)
 
-       
+        st.markdown("---")
         st.markdown(
             "<p style='text-align:center;color:#5d6d7e;'>© 2023 K-Bloom Classifier | Universitas Negeri Yogyakarta</p>", unsafe_allow_html=True)
 
